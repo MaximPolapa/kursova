@@ -29,8 +29,8 @@ jobs:
             docker rm my-container || true
 
             
-            docker pull my-dockerhub-username/my-image-name:latest
+            docker pull youvbla/kursova:latest
 
             
-            docker run -d --name my-container -p 80:80 my-dockerhub-username/my-image-name:latest
+            docker run -d --name my-container -p 80:80 youvbla/kursova:latest
           EOF
