@@ -1,0 +1,36 @@
+name: Deploy to AWS EC2
+
+on:
+  push:
+    branches:
+      - "master"
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+      
+      - name: Checkout Code
+        uses: actions/checkout@v4
+
+      
+      - name: Add SSH Key
+        uses: webfactory/ssh-agent@v0.5.3
+        with:
+          ssh-private-key: ${{ secrets.AWS_EC2_PRIVATE_KEY }}
+
+      
+      - name: Deploy via SSH
+        run: |
+          ssh -o StrictHostKeyChecking=no -i kursova.pem ubuntu@52.54.246.34 << 'EOF'
+            
+            docker stop my-container || true
+            docker rm my-container || true
+
+            
+            docker pull youvbla/kursova:latest
+
+            
+            docker run -d --name my-container -p 80:80 youvbla/kursova:latest
+          EOF
