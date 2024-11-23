@@ -23,7 +23,7 @@ jobs:
       
       - name: Deploy via SSH
         run: |
-          ssh -o StrictHostKeyChecking=no ubuntu@52.54.246.34 << 'EOF'
+          ssh -o StrictHostKeyChecking=no ubuntu@34.199.105.128 << 'EOF'
             
             docker stop my-container || true
             docker rm my-container || true
